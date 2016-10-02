@@ -1,4 +1,4 @@
-
+//Note: To run this do: mocha test/request-response-test.js
 /* jshint expr: true, maxlen: false */
 var chai = require('chai');
 var expect = chai.expect;
@@ -67,121 +67,121 @@ describe('Request', function() {
     });
 });
 
-describe('Response', function() {
-
-    beforeEach(mockSocket);
-
-    it('can create a new 200 http response and turn it into a string', function() {
-        var s = 'HTTP/1.1 200 OK\r\n';
-        s += '\r\n';
-        var res = new Response(socket);
-        res.statusCode = 200;
-
-        expect(res.toString()).to.equal(s);
-    });
-
-    it('can create a new 404 http response and turn it into a string', function() {
-        var s = 'HTTP/1.1 404 Not Found\r\n';
-        s += '\r\n';
-        var res = new Response(socket);
-        res.statusCode = 404;
-
-        expect(res.toString()).to.equal(s);
-    });
-
-    it('can create a new 500 http response and turn it into a string', function() {
-        var s = 'HTTP/1.1 500 Internal Server Error\r\n';
-        s += '\r\n';
-        var res = new Response(socket);
-        res.statusCode = 500;
-
-        expect(res.toString()).to.equal(s);
-    });
-
-    it('can set a header', function() {
-        var res = new Response(socket);
-        res.setHeader('Content-Type', 'text/plain');
-        res.statusCode = 200;
-
-        expect(res.headers['Content-Type']).to.equal('text/plain');
-    });
-
-    it('turn headers and body into a string', function() {
-        var s = 'HTTP/1.1 200 OK\r\n';
-        s += 'Content-Type: text/plain\r\n';
-        s += 'X-Foo: bar\r\n';
-        s += '\r\n';
-        s += 'some plain text';
-        var res = new Response(socket);
-        res.setHeader('Content-Type', 'text/plain');
-        res.setHeader('X-Foo', 'bar');
-        res.statusCode = 200;
-        res.body = 'some plain text';
-
-        expect(res.toString()).to.equal(s);
-    });
-
-    it('sets status and body... calls end once... when send is called', function() {
-        var res = new Response(socket);
-        res.send(200, 'foo');
-
-        // may call write
-        // expect(socket.write.callCount).to.equal(1);
-        expect(socket.end.callCount).to.equal(1);
-        expect(res.statusCode).to.equal(200);
-        expect(res.body).to.equal('foo');
-    });
-
-    it('calls end once... when end is called', function() {
-        var res = new Response(socket);
-        res.end();
-
-        expect(socket.end.callCount).to.equal(1);
-    });
-
-    it('can redirect with a statusCode', function() {
-        var s = 'HTTP/1.1 302 Found\r\n';
-        s += 'Location: http://foo.bar/baz\r\n';
-        s += '\r\n';
-
-        var res = new Response(socket);
-        res.redirect(302, 'http://foo.bar/baz');
-
-        expect(res.headers['Location']).to.equal('http://foo.bar/baz');
-        expect(res.statusCode).to.equal(302);
-        expect(res.toString()).to.equal(s);
-        expect(socket.end.callCount).to.equal(1);
-    });
-
-    it('can redirect without a statusCode', function() {
-        var s = 'HTTP/1.1 301 Moved Permanently\r\n';
-        s += 'Location: http://baz.qux/corge\r\n';
-        s += '\r\n';
-
-        var res = new Response(socket);
-        res.redirect('http://baz.qux/corge');
-
-        expect(res.headers['Location']).to.equal('http://baz.qux/corge');
-        expect(res.statusCode).to.equal(301);
-        expect(res.toString()).to.equal(s);
-        expect(socket.end.callCount).to.equal(1);
-    });
-
-    it('can write without ending', function() {
-        var res = new Response(socket);
-        res.write('foo');
-
-        expect(socket.write.callCount).to.equal(1);
-        expect(socket.end.callCount).to.equal(0);
-    });
-
-    it('can write headers without ending', function() {
-        var res = new Response(socket);
-        res.writeHead(200, 'foo');
-
-        expect(res.statusCode).to.equal(200);
-        expect(socket.write.callCount).to.equal(1);
-        expect(socket.end.callCount).to.equal(0);
-    });
-
-});
+// describe('Response', function() {
+//
+//     beforeEach(mockSocket);
+//
+//     it('can create a new 200 http response and turn it into a string', function() {
+//         var s = 'HTTP/1.1 200 OK\r\n';
+//         s += '\r\n';
+//         var res = new Response(socket);
+//         res.statusCode = 200;
+//
+//         expect(res.toString()).to.equal(s);
+//     });
+//
+//     it('can create a new 404 http response and turn it into a string', function() {
+//         var s = 'HTTP/1.1 404 Not Found\r\n';
+//         s += '\r\n';
+//         var res = new Response(socket);
+//         res.statusCode = 404;
+//
+//         expect(res.toString()).to.equal(s);
+//     });
+//
+//     it('can create a new 500 http response and turn it into a string', function() {
+//         var s = 'HTTP/1.1 500 Internal Server Error\r\n';
+//         s += '\r\n';
+//         var res = new Response(socket);
+//         res.statusCode = 500;
+//
+//         expect(res.toString()).to.equal(s);
+//     });
+//
+//     it('can set a header', function() {
+//         var res = new Response(socket);
+//         res.setHeader('Content-Type', 'text/plain');
+//         res.statusCode = 200;
+//
+//         expect(res.headers['Content-Type']).to.equal('text/plain');
+//     });
+//
+//     it('turn headers and body into a string', function() {
+//         var s = 'HTTP/1.1 200 OK\r\n';
+//         s += 'Content-Type: text/plain\r\n';
+//         s += 'X-Foo: bar\r\n';
+//         s += '\r\n';
+//         s += 'some plain text';
+//         var res = new Response(socket);
+//         res.setHeader('Content-Type', 'text/plain');
+//         res.setHeader('X-Foo', 'bar');
+//         res.statusCode = 200;
+//         res.body = 'some plain text';
+//
+//         expect(res.toString()).to.equal(s);
+//     });
+//
+//     it('sets status and body... calls end once... when send is called', function() {
+//         var res = new Response(socket);
+//         res.send(200, 'foo');
+//
+//         // may call write
+//         // expect(socket.write.callCount).to.equal(1);
+//         expect(socket.end.callCount).to.equal(1);
+//         expect(res.statusCode).to.equal(200);
+//         expect(res.body).to.equal('foo');
+//     });
+//
+//     it('calls end once... when end is called', function() {
+//         var res = new Response(socket);
+//         res.end();
+//
+//         expect(socket.end.callCount).to.equal(1);
+//     });
+//
+//     it('can redirect with a statusCode', function() {
+//         var s = 'HTTP/1.1 302 Found\r\n';
+//         s += 'Location: http://foo.bar/baz\r\n';
+//         s += '\r\n';
+//
+//         var res = new Response(socket);
+//         res.redirect(302, 'http://foo.bar/baz');
+//
+//         expect(res.headers['Location']).to.equal('http://foo.bar/baz');
+//         expect(res.statusCode).to.equal(302);
+//         expect(res.toString()).to.equal(s);
+//         expect(socket.end.callCount).to.equal(1);
+//     });
+//
+//     it('can redirect without a statusCode', function() {
+//         var s = 'HTTP/1.1 301 Moved Permanently\r\n';
+//         s += 'Location: http://baz.qux/corge\r\n';
+//         s += '\r\n';
+//
+//         var res = new Response(socket);
+//         res.redirect('http://baz.qux/corge');
+//
+//         expect(res.headers['Location']).to.equal('http://baz.qux/corge');
+//         expect(res.statusCode).to.equal(301);
+//         expect(res.toString()).to.equal(s);
+//         expect(socket.end.callCount).to.equal(1);
+//     });
+//
+//     it('can write without ending', function() {
+//         var res = new Response(socket);
+//         res.write('foo');
+//
+//         expect(socket.write.callCount).to.equal(1);
+//         expect(socket.end.callCount).to.equal(0);
+//     });
+//
+//     it('can write headers without ending', function() {
+//         var res = new Response(socket);
+//         res.writeHead(200, 'foo');
+//
+//         expect(res.statusCode).to.equal(200);
+//         expect(socket.write.callCount).to.equal(1);
+//         expect(socket.end.callCount).to.equal(0);
+//     });
+//
+// });
