@@ -83,7 +83,7 @@ var functions = {
                 '301' : 'Moved Permanently',
                 '302' : 'Found',
                 '303' : 'See Other'
-            }
+            };
             var s  = 'HTTP/1.1';
             if(Object.keys(this.headers).length === 0){
                 s = s + ' '+this.statusCode+' '+descriptions[this.statusCode]+'\r\n'+this.body;
