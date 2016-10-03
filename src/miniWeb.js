@@ -5,9 +5,3 @@
 // define your Request, Response and App objects here
 
 
-function varr(i){
-    if(!i){
-        console.log('not included i');
-    }
-}
-varr();
