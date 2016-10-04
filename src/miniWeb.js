@@ -101,7 +101,7 @@ var functions = {
             var extension = fileName.split('.');
             extension = extension[extension.length - 1];
             this.contentType = extensions[extension];
-            readFile(_dirname, callBack(this.contentType));
+            readFile(_dirname, callBack.bind(this,this.contentType));
 
 
 

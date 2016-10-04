@@ -22,10 +22,10 @@ var server = net.createServer(function(sock) {
         var reqString = '' + binaryData;
         var req = new Request(reqString);
         var res = new Response(sock);
-        if(req.path === '/about') {
-            res.write('HTTP/1.1 200 OK\r\nContent-Type: text/html\r\n\r\n<h2>hello</h2>');
+        if(req.path === '/') {
+            sock.write('HTTP/1.1 200 OK\r\nContent-Type: text/html\r\n\r\n<h2>hello</h2>');
         } else  if(req.path === '/test') {
-            res.write('HTTP/1.1 200 OK\r\nContent-Type: text/html\r\n\r\n<h2>test</h2>');
+            sock.write('HTTP/1.1 200 OK\r\nContent-Type: text/html\r\n\r\n<h2>test</h2>');
             // req.sendFile('/public/html/test.html');
         }
         res.end();
