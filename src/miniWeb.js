@@ -92,7 +92,7 @@ var functions = {
                 var fs  = require('fs');
                 var path = require('path');
                 this.callBack2 = function(contentType,err, data){
-
+                    console.log(err);
                     if(err){
 
                         this.writeHead(500);
@@ -107,7 +107,7 @@ var functions = {
 
                 };
 
-                var dirname = path.resolve('.')+'/public'+fileName;
+                var dirname = path.resolve('..')+'/public'+fileName;
                 this.dirname = dirname;
 
                 var extensions = {
